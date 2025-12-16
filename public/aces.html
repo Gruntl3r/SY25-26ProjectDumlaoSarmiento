@@ -62,7 +62,7 @@
             h1, h2 {
                 text-align: center; 
                 text-shadow: 3px 3px 5px white;
-                color: gold;
+                color: rgb(4, 84, 204);
                 text-transform: uppercase;
             }
 
@@ -115,18 +115,49 @@
             font-family: "IsagiRed";
             src: url("/fonts/yoruka-font/Yoruka-1j9rL.ttf") format("opentype");
             }
-</style>
+            
+            .underline-anim {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            text-decoration: none;
+            }
 
-<body>
-       <ul>
-            <li><a href="../public/lineup.html">Lineup</a></li>
-            <li><a href="../public/matchups.html">Matchups</a></li>
-            <li><a href="../public/teams.html">Teams</a></li>
-            <li><a href="/index.html">Home</a></li>
-            <li><a href="../public/aces.html">Aces</a></li>
-            <li><a href="../public/references.html">Sources</a></li>
-        </ul>
 
+            .underline-anim::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background-color: hsl(0, 100%, 100%);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+            }
+
+            .underline-anim:hover::after {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+
+            </style>
+            </head>
+            <body>
+
+            
+
+            <ul>
+            <li><a href="../public/lineup.html" class="underline-anim">Lineup</a></li>
+            <li><a href="../public/matchups.html" class="underline-anim">Matchups</a></li>
+            <li><a href="../public/teams.html" class="underline-anim">Teams</a></li>
+            <li><a href="/index.html" class="underline-anim">Home</a></li>
+            <li><a href="../public/aces.html" class="underline-anim">Aces</a></li>
+            <li><a href="../public/references.html" class="underline-anim">Sources</a></li>
+            </ul>
+
+            </body>
 
     <header>
     <h1>Blue Lock: Neo Egoist League</h1>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Signup</title>
+  <link rel="icon" href="https://cdn.imgchest.com/files/e76eace881c8.png"/>
+  <style>
+    @font-face {
+      font-family: "IsagiBlue";
+      src: url("./fonts/Fonstars-4Bo0p.otf") format("opentype");
+    }
+    @font-face {
+      font-family: "IsagiRed";
+      src: url("./fonts/yoruka-font/Yoruka-1j9rL.ttf") format("opentype");
+    }
+    * { font-family: "IsagiBlue", sans-serif; }
+    body {
+      background-image: url("https://4kwallpapers.com/images/wallpapers/blue-lock-vs-u-20-1920x1080-20398.jpg");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      backdrop-filter: blur(2px);
+      background-size: cover;
+      margin: 0; padding: 0;
+      background-color: black;
+    }
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 40vw;
+      margin: 40px auto;
+      font-family: "IsagiRed", sans-serif;
+      background-color: #dddd;
+    }
+    td, th {
+      text-align: center;
+      padding: 12px;
+      color: black;
+    }
+    h1, h2 {
+      text-align: center;
+      text-shadow: 3px 3px 5px white;
+      color: rgb(15, 4, 175);
+      text-transform: uppercase;
+      font-family: "IsagiBlue", sans-serif;
+    }
+    h2, p { margin: 10px; font-family: "IsagiRed", sans-serif; }
+    ul {
+      list-style-type: none; margin: 0; padding: 0;
+      overflow: hidden; background-color: #3855f6;
+    }
+    ul li { float: left; }
+    ul li a {
+      display: block; color: white; text-align: center;
+      padding: 14px 16px; text-decoration: none;
+    }
+    ul li a:hover { background-color: #111111; }
+    .underline-anim { position: relative; display: inline-block; cursor: pointer; text-decoration: none; }
+    .underline-anim::after {
+      content: ""; position: absolute; left: 0; bottom: 0;
+      width: 100%; height: 2px; background-color: #ffffff;
+      transform: scaleX(0); transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    .underline-anim:hover::after { transform: scaleX(1); transform-origin: left; }
+    ul a:active { transform: translateY(4px); }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 80%; padding: 10px; margin: 8px 0;
+      border: 1px solid #ccc; border-radius: 5px;
+    }
+    button {
+      background-color: #3855f6; color: white;
+      padding: 10px 20px; border: none; border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover { background-color: #111111; }
+    .credits { text-align: center; color: white; margin-top: 40px; }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <ul>
+    <li><a href="./index.html" class="underline-anim">Home</a></li>
+    <li><a href="./lineup.html" class="underline-anim">Lineup</a></li>
+    <li><a href="./matchups.html" class="underline-anim">Matchups</a></li>
+    <li><a href="./teams.html" class="underline-anim">Teams</a></li>
+    <li><a href="./aces.html" class="underline-anim">Aces</a></li>
+    <li><a href="./signup.html" class="underline-anim">Tracker</a></li>
+    <li><a href="./references.html" class="underline-anim">Sources</a></li>
+    <li style="position: absolute; right: 0;"><a href="#" class="underline-anim">Blue Lock Neo Egoist League</a></li>
+  </ul>
+
+  <!-- Header -->
+  <header>
+    <h1>Blue Lock: Neo Egoist League</h1>
+    <h2>Signup Page</h2>
+  </header>
+
+  <!-- Signup Table -->
+  <form id="signupForm">
+    <table>
+      <tr><th colspan="2">Signup</th></tr>
+      <tr>
+        <td>Email:</td>
+        <td><input type="email" id="email" placeholder="Enter your email" required></td>
+      </tr>
+      <tr>
+        <td>Username:</td>
+        <td><input type="text" id="username" placeholder="Enter your username" required></td>
+      </tr>
+      <tr>
+        <td>Password:</td>
+        <td><input type="password" id="password" placeholder="Enter your password" required></td>
+      </tr>
+      <tr>
+        <td>Confirm Password:</td>
+        <td><input type="password" id="confirmPassword" placeholder="Confirm your password" required></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button type="submit">Signup</button></td>
+      </tr>
+    </table>
+  </form>
+
+  <!-- Credits -->
+  <div class="credits">
+    <p>Created by Hans Christopher T. Dumlao (Be11) and Liam Joshua P. Sarmiento (Be25)<br>All rights reserved. © 2025.</p>
+  </div>
+
+  <script>
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+      localStorage.setItem("email", email);
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

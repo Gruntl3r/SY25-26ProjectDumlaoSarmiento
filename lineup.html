@@ -132,6 +132,34 @@
                 transform: translateY(4px);
             }
 
+            body.loading {
+            overflow: hidden;
+            }
+
+            #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000; /* or any background color you like */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .spin-logo {
+            width: 150px; /* adjust size as needed */
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+
             </style>
             </head>
             <body>
@@ -156,6 +184,16 @@
 
         </style>
         </head>
+
+        <script>
+        document.body.classList.add("loading");
+        window.addEventListener("load", () => {
+            document.getElementById("loading-screen").style.display = "none";
+            document.body.classList.remove("loading");
+        });
+        </script>
+
+
         <body>
             <header>
                 <h1>Blue Lock: Neo Egoist League</h1>

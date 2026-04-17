@@ -126,10 +126,23 @@
   </div>
 
   <script>
+    <form action="" method="POST">
+      <label for="goals">Goals</label>
+      <input type="number" id="goal" name="goal" required>
+
+      <label for="dribbles">Dribbles</label>
+      <input type="number" id="dribbles"name="dribbles" required>
+
+      <label for="shots">Shots</label>
+      <input type="number" id="shots" name="shots" required>
+
+      <label for="steps">Steps</label>
+      <input type="number" id="steps" name="steps" required>  
+
+    </form>
     const checkboxes = document.querySelectorAll('.task');
     const progressBar = document.getElementById('progress-bar');
     const taskTable = document.getElementById('task-table');
-
     function updateProgress() {
       const total = checkboxes.length;
       const checked = document.querySelectorAll('.task:checked').length;

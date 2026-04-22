@@ -111,21 +111,6 @@
     <div class="progress-bar" id="progress-bar">0%</div>
   </div>
 
-  <table id="task-table">
-    <tr><th>Task</th><th>Status</th></tr>
-    <tr><td><input type="checkbox" class="task"> Task 1</td><td>Pending</td></tr>
-    <tr><td><input type="checkbox" class="task"> Task 2</td><td>Pending</td></tr>
-    <tr><td><input type="checkbox" class="task"> Task 3</td><td>Pending</td></tr>
-    <tr><td><input type="checkbox" class="task"> Task 4</td><td>Pending</td></tr>
-    <tr><td><input type="checkbox" class="task"> Task 5</td><td>Pending</td></tr>
-  </table>
-
-  <div class="credits">
-    <p>Created by Hans Christopher T. Dumlao (Be11) and Liam Joshua P. Sarmiento (Be25)<br>
-    All rights reserved. © 2025.</p>
-  </div>
-
-  <script>
     <form action="trackerprogress.html" method="GET">
       <label for="goals">Goals</label>
       <input type="number" id="goal" name="goal" required>
@@ -140,6 +125,15 @@
       <input type="number" id="steps" name="steps" required>  
 
     </form>
+
+  <div class="credits">
+    <p>Created by Hans Christopher T. Dumlao (Be11) and Liam Joshua P. Sarmiento (Be25)<br>
+    All rights reserved. © 2025.</p>
+  </div>
+
+
+
+  <script>
     const checkboxes = document.querySelectorAll('.task');
     const progressBar = document.getElementById('progress-bar');
     const taskTable = document.getElementById('task-table');

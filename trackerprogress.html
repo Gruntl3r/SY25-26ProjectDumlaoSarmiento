@@ -87,3 +87,87 @@
       font-family: "IsagiRed", sans-serif;
     }
 
+    .credits { text-align: center; color: white; margin-top: 40px; }
+  </style>
+  </head>
+  <body>
+  <ul>
+    <li><a href="./index.html" class="underline-anim">Home</a></li>
+    <li><a href="./lineup.html" class="underline-anim">Lineup</a></li>
+    <li><a href="./matchups.html" class="underline-anim">Matchups</a></li>
+    <li><a href="./teams.html" class="underline-anim">Teams</a></li>
+    <li><a href="./aces.html" class="underline-anim">Aces</a></li>
+    <li><a href="./signup.html" class="underline-anim">Tracker</a></li>
+    <li><a href="./references.html" class="underline-anim">Sources</a></li>
+    <li style="position: absolute; right: 0;"><a href="#" class="underline-anim">Blue Lock Neo Egoist League</a></li>
+  </ul>
+
+  <header>
+    <h1>Blue Lock: Neo Egoist League</h1>
+    <div class="progress-container">
+  <div class="progress-bar" id="overallBar">0%</div>
+</div>
+  </header>
+  <form>
+    <label for="GOALS">Goals</label>
+      <input type="number" id="GOALS" name="GOALS" required>
+
+      <label for="DRIBBLES">Dribbles</label>
+      <input type="number" id="DRIBBLES"name="DRIBBLES" required>
+
+      <label for="SHOTS">Shots</label>
+      <input type="number" id="SHOTS" name="SHOTS" required>
+
+      <label for="STEPS">Steps</label>
+      <input type="number" id="STEPS" name="STEPS" required>  
+  </form>
+
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const goals = params.get("goals");
+    const dribbles = params.get("dribbles");
+    const shots = params.get("shots");
+    const steps = params.get("steps");
+
+    document.getElementById("GOALS").value = goals;
+    document.getElementById("DRIBBLES").value = dribbles;
+    document.getElementById("SHOTS").value = shots;
+    document.getElementById("STEPS").value = steps;
+
+     function enforceLimit(inputId, limit) {
+    const input = document.getElementById(inputId);
+    input.addEventListener("input", () => {
+      if (parseInt(input.value) > limit) {
+        input.value = limit; // cap at the limit
+      }
+    });
+    }
+
+    enforceLimit("GOALS", goals);
+    enforceLimit("DRIBBLES", dribbles);
+    enforceLimit("SHOTS", shots);
+    enforceLimit("STEPS", steps);
+
+    function updateOverallProgress() {
+    const goalVal = parseInt(document.getElementById("GOALS").value) || 0;
+    const dribbleVal = parseInt(document.getElementById("DRIBBLES").value) || 0;
+    const shotVal = parseInt(document.getElementById("SHOTS").value) || 0;
+    const stepVal = parseInt(document.getElementById("STEPS").value) || 0;
+
+     const totalCurrent = goalVal + dribbleVal + shotVal + stepVal;
+    const totalLimit = parseInt(goals) + parseInt(dribbles) + parseInt(shots) + parseInt(steps);
+
+    let percent = Math.min((totalCurrent / totalLimit) * 100, 100);
+
+    const bar = document.getElementById("overallBar");
+    bar.style.width = percent + "%";
+    bar.textContent = Math.floor(percent) + "%";
+    
+    updateOverallProgress();
+}
+
+  </script>
+
+</body>

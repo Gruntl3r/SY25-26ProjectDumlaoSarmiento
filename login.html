@@ -147,7 +147,8 @@
   </header>
 
   <!-- Login Table -->
-  <table id="loginForm">
+  <form id="loginForm">
+  <table>
     <tr>
       <th colspan="2">Login</th>
     </tr>
@@ -163,6 +164,7 @@
       <td colspan="2"><button type="submit">Login</button></td>
     </tr>
   </table>
+  </form>
 
   <!-- Credits -->
   <div class="credits">
@@ -176,20 +178,20 @@
 <script>
   document.getElementById("loginForm").addEventListener("submit", function(e) {
   e.preventDefault();
+  console.log("Login form submitted");
 
   const username = document.getElementById("loginUsername").value;
   const password = document.getElementById("loginPassword").value;
 
-
   const storedUser = JSON.parse(localStorage.getItem(username));
+  console.log("Stored user:", storedUser);
 
   if (storedUser && storedUser.password === password) {
     alert("Login successful!");
-    
-      window.location.href = "tracker.html";
-    } else {
-      alert("Invalid username or password");
-    }
-  });
+    window.location.href = "tracker.html";
+  } else {
+    alert("Invalid username or password");
+  }
+});
 </script>
 </html>

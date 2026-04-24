@@ -157,7 +157,7 @@
     const input = document.getElementById(inputId);
     input.addEventListener("input", () => {
       if (parseInt(input.value) > limit) {
-        input.value = limit; // cap at the limit
+        input.value = limit;
       }
     });
     }
@@ -190,40 +190,40 @@
     const stepLimit = parseInt(params.get("steps"));
 
     function addProgress() {
-  // Read current totals
-  let goalTotal = parseInt(document.getElementById("GOALS").value) || 0;
-  let dribbleTotal = parseInt(document.getElementById("DRIBBLES").value) || 0;
-  let shotTotal = parseInt(document.getElementById("SHOTS").value) || 0;
-  let stepTotal = parseInt(document.getElementById("STEPS").value) || 0;
 
-  let goalIncrement = parseInt(document.getElementById("GOALS").dataset.increment) || 0;
-  let dribbleIncrement = parseInt(document.getElementById("DRIBBLES").dataset.increment) || 0;
-  let shotIncrement = parseInt(document.getElementById("SHOTS").dataset.increment) || 0;
-  let stepIncrement = parseInt(document.getElementById("STEPS").dataset.increment) || 0;
+    let goalTotal = parseInt(document.getElementById("GOALS").value) || 0;
+    let dribbleTotal = parseInt(document.getElementById("DRIBBLES").value) || 0;
+    let shotTotal = parseInt(document.getElementById("SHOTS").value) || 0;
+    let stepTotal = parseInt(document.getElementById("STEPS").value) || 0;
 
-
-  goalTotal = Math.min(goalTotal + goalIncrement, goalLimit);
-  dribbleTotal = Math.min(dribbleTotal + dribbleIncrement, dribbleLimit);
-  shotTotal = Math.min(shotTotal + shotIncrement, shotLimit);
-  stepTotal = Math.min(stepTotal + stepIncrement, stepLimit);
+    let goalIncrement = parseInt(document.getElementById("GOALS").dataset.increment) || 0;
+    let dribbleIncrement = parseInt(document.getElementById("DRIBBLES").dataset.increment) || 0;
+    let shotIncrement = parseInt(document.getElementById("SHOTS").dataset.increment) || 0;
+    let stepIncrement = parseInt(document.getElementById("STEPS").dataset.increment) || 0;
 
 
-  document.getElementById("GOALS").value = goalTotal;
-  document.getElementById("DRIBBLES").value = dribbleTotal;
-  document.getElementById("SHOTS").value = shotTotal;
-  document.getElementById("STEPS").value = stepTotal;
+    goalTotal = Math.min(goalTotal + goalIncrement, goalLimit);
+    dribbleTotal = Math.min(dribbleTotal + dribbleIncrement, dribbleLimit);
+    shotTotal = Math.min(shotTotal + shotIncrement, shotLimit);
+    stepTotal = Math.min(stepTotal + stepIncrement, stepLimit);
 
 
-  const totalCurrent = goalTotal + dribbleTotal + shotTotal + stepTotal;
-  const totalLimit = goalLimit + dribbleLimit + shotLimit + stepLimit;
-  const percent = Math.min((totalCurrent / totalLimit) * 100, 100);
+    document.getElementById("GOALS").value = goalTotal;
+    document.getElementById("DRIBBLES").value = dribbleTotal;
+    document.getElementById("SHOTS").value = shotTotal;
+    document.getElementById("STEPS").value = stepTotal;
 
-  const bar = document.getElementById("overallBar");
-  bar.style.width = percent + "%";
-  bar.textContent = Math.floor(percent) + "%";
+
+    const totalCurrent = goalTotal + dribbleTotal + shotTotal + stepTotal;
+    const totalLimit = goalLimit + dribbleLimit + shotLimit + stepLimit;
+    const percent = Math.min((totalCurrent / totalLimit) * 100, 100);
+
+    const bar = document.getElementById("overallBar");
+    bar.style.width = percent + "%";
+    bar.textContent = Math.floor(percent) + "%";
 }
 
-  document.getElementById("submitProgress").addEventListener("click", addProgress);
+    document.getElementById("submitProgress").addEventListener("click", addProgress);
 }
 
 if (totalCurrent >= totalLimit) {

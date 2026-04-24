@@ -119,7 +119,9 @@
       <input type="number" id="SHOTS" name="SHOTS" required>
 
       <label for="STEPS">Steps</label>
-      <input type="number" id="STEPS" name="STEPS" required>  
+      <input type="number" id="STEPS" name="STEPS" required>
+      
+      <button id="submitProgress" type="button">Submit Progress</button>
   </form>
 
 
@@ -166,6 +168,89 @@
     bar.textContent = Math.floor(percent) + "%";
     
     updateOverallProgress();
+
+    const goalLimit = parseInt(params.get("goals"));
+    const dribbleLimit = parseInt(params.get("dribbles"));
+    const shotLimit = parseInt(params.get("shots"));
+    const stepLimit = parseInt(params.get("steps"));
+
+    function addProgress() {
+  // Read current totals
+  let goalTotal = parseInt(document.getElementById("GOALS").value) || 0;
+  let dribbleTotal = parseInt(document.getElementById("DRIBBLES").value) || 0;
+  let shotTotal = parseInt(document.getElementById("SHOTS").value) || 0;
+  let stepTotal = parseInt(document.getElementById("STEPS").value) || 0;
+
+  let goalIncrement = parseInt(document.getElementById("GOALS").dataset.increment) || 0;
+  let dribbleIncrement = parseInt(document.getElementById("DRIBBLES").dataset.increment) || 0;
+  let shotIncrement = parseInt(document.getElementById("SHOTS").dataset.increment) || 0;
+  let stepIncrement = parseInt(document.getElementById("STEPS").dataset.increment) || 0;
+
+
+  goalTotal = Math.min(goalTotal + goalIncrement, goalLimit);
+  dribbleTotal = Math.min(dribbleTotal + dribbleIncrement, dribbleLimit);
+  shotTotal = Math.min(shotTotal + shotIncrement, shotLimit);
+  stepTotal = Math.min(stepTotal + stepIncrement, stepLimit);
+
+
+  document.getElementById("GOALS").value = goalTotal;
+  document.getElementById("DRIBBLES").value = dribbleTotal;
+  document.getElementById("SHOTS").value = shotTotal;
+  document.getElementById("STEPS").value = stepTotal;
+
+
+  const totalCurrent = goalTotal + dribbleTotal + shotTotal + stepTotal;
+  const totalLimit = goalLimit + dribbleLimit + shotLimit + stepLimit;
+  const percent = Math.min((totalCurrent / totalLimit) * 100, 100);
+
+  const bar = document.getElementById("overallBar");
+  bar.style.width = percent + "%";
+  bar.textContent = Math.floor(percent) + "%";
+}
+
+  document.getElementById("submitProgress").addEventListener("click", addProgress);
+}
+
+if (totalCurrent >= totalLimit) {
+  showCompletionScreen();
+}
+
+function showCompletionScreen() {
+  document.body.innerHTML = `
+    <div class="navbar">
+      <ul>
+        <li>HOME</li>
+        <li>LINEUP</li>
+        <li>MATCHUPS</li>
+        <li>TEAMS</li>
+        <li>ACES</li>
+        <li>SOURCES</li>
+        <li>TRACKER</li>
+        <li>BLUE LOCK NEO EGOIST LEAGUE</li>
+      </ul>
+    </div>
+
+    <h1>GOALS REACHED!</h1>
+
+    <div class="progress-container">
+      <div class="progress-bar" style="width:100%">100%</div>
+    </div>
+
+    <div class="stats">
+      <p>GOALS: ${goalLimit}</p>
+      <p>DRIBBLES: ${dribbleLimit}</p>
+      <p>SHOTS: ${shotLimit}</p>
+      <p>STEPS: ${stepLimit}</p>
+    </div>
+
+    <button id="resetButton">RESET</button>
+
+    <footer>COPYRIGHT</footer>
+  `;
+
+  document.getElementById("resetButton").addEventListener("click", () => {
+    window.location.href = "tracker.html";
+  });
 }
 
   </script>

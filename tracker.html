@@ -88,6 +88,19 @@
     }
 
     .credits { text-align: center; color: white; margin-top: 40px; }
+    form {
+      display: flex;
+      flex-direction: column; 
+      align-items: center;      
+      justify-content: center; 
+      gap: 15px;                
+      margin: 50px auto;       
+      width: 300px;             
+      padding: 20px;
+      border: 2px solid #3855f6;   
+      border-radius: 8px;       
+      background-color: #f9f9f9de;
+        }
   </style>
 </head>
 <body>
@@ -124,6 +137,7 @@
       <label for="steps">Steps</label>
       <input type="number" id="steps" name="steps" required>  
 
+      <input type="submit" value="Submit">
     </form>
 
   <div class="credits">

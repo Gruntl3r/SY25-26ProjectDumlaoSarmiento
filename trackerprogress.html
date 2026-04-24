@@ -33,7 +33,7 @@
     }
 
     h1, h2 {
-      text-align: center; 
+      text-align: center;
       text-shadow: 3px 3px 5px white;
       color: rgb(15, 4, 175);
       text-transform: uppercase;
@@ -91,21 +91,20 @@
 
     form {
       display: flex;
-      flex-direction: column; 
-      align-items: center;      
-      justify-content: center; 
-      gap: 15px;                
-      margin: 50px auto;       
-      width: 300px;             
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 50px auto;
+      width: 300px;
       padding: 20px;
-      border: 2px solid #3855f6;   
-      border-radius: 8px;       
+      border: 2px solid #3855f6;
+      border-radius: 8px;
       background-color: #f9f9f9de;
-        }
-
+    }
   </style>
-  </head>
-  <body>
+</head>
+<body>
   <ul>
     <li><a href="./index.html" class="underline-anim">Home</a></li>
     <li><a href="./lineup.html" class="underline-anim">Lineup</a></li>
@@ -120,109 +119,117 @@
   <header>
     <h1>Blue Lock: Neo Egoist League</h1>
     <div class="progress-container">
-  <div class="progress-bar" id="overallBar">0%</div>
-</div>
+      <div class="progress-bar" id="overallBar">0%</div>
+    </div>
   </header>
+
   <form>
     <label for="GOALS">Goals</label>
-      <input type="number" id="GOALS" name="GOALS" required>
+    <input type="number" id="GOALS" name="GOALS" required>
 
-      <label for="DRIBBLES">Dribbles</label>
-      <input type="number" id="DRIBBLES"name="DRIBBLES" required>
+    <label for="DRIBBLES">Dribbles</label>
+    <input type="number" id="DRIBBLES" name="DRIBBLES" required>
 
-      <label for="SHOTS">Shots</label>
-      <input type="number" id="SHOTS" name="SHOTS" required>
+    <label for="SHOTS">Shots</label>
+    <input type="number" id="SHOTS" name="SHOTS" required>
 
-      <label for="STEPS">Steps</label>
-      <input type="number" id="STEPS" name="STEPS" required>
-      
-      <button id="submitProgress" type="button">Submit Progress</button>
+    <label for="STEPS">Steps</label>
+    <input type="number" id="STEPS" name="STEPS" required>
+
+    <button id="submitProgress" type="button">Submit Progress</button>
   </form>
 
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const goalLimit = parseInt(params.get("goals")) || 0;
+    const dribbleLimit = parseInt(params.get("dribbles")) || 0;
+    const shotLimit = parseInt(params.get("shots")) || 0;
+    const stepLimit = parseInt(params.get("steps")) || 0;
 
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const goalLimit = parseInt(params.get("goals")) || 0;
-  const dribbleLimit = parseInt(params.get("dribbles")) || 0;
-  const shotLimit = parseInt(params.get("shots")) || 0;
-  const stepLimit = parseInt(params.get("steps")) || 0;
+    function updateOverallProgress(goalTotal, dribbleTotal, shotTotal, stepTotal) {
+      const totalCurrent = goalTotal + dribbleTotal + shotTotal + stepTotal;
+      const totalLimit = goalLimit + dribbleLimit + shotLimit + stepLimit;
 
-  function updateOverallProgress(goalTotal, dribbleTotal, shotTotal, stepTotal) {
-    const totalCurrent = goalTotal + dribbleTotal + shotTotal + stepTotal;
-    const totalLimit = goalLimit + dribbleLimit + shotLimit + stepLimit;
-    const percent = Math.min((totalCurrent / totalLimit) * 100, 100);
+      if (totalLimit === 0) return;
 
-    const bar = document.getElementById("overallBar");
-    bar.style.width = percent + "%";
-    bar.textContent = Math.floor(percent) + "%";
+      const percent = Math.min((totalCurrent / totalLimit) * 100, 100);
 
-    if (totalCurrent >= totalLimit) {
-      showCompletionScreen();
+      const bar = document.getElementById("overallBar");
+      bar.style.width = percent + "%";
+      bar.textContent = Math.floor(percent) + "%";
+
+      if (totalCurrent >= totalLimit) {
+        showCompletionScreen();
+      }
     }
-  }
 
-  function addProgress() {
-    let goalTotal = parseInt(document.getElementById("GOALS").value) || 0;
-    let dribbleTotal = parseInt(document.getElementById("DRIBBLES").value) || 0;
-    let shotTotal = parseInt(document.getElementById("SHOTS").value) || 0;
-    let stepTotal = parseInt(document.getElementById("STEPS").value) || 0;
+    function addProgress() {
+      const goalTotal = Math.min(parseInt(document.getElementById("GOALS").value) || 0, goalLimit);
+      const dribbleTotal = Math.min(parseInt(document.getElementById("DRIBBLES").value) || 0, dribbleLimit);
+      const shotTotal = Math.min(parseInt(document.getElementById("SHOTS").value) || 0, shotLimit);
+      const stepTotal = Math.min(parseInt(document.getElementById("STEPS").value) || 0, stepLimit);
 
-    goalTotal = Math.min(goalTotal + 1, goalLimit);
-    dribbleTotal = Math.min(dribbleTotal + 1, dribbleLimit);
-    shotTotal = Math.min(shotTotal + 1, shotLimit);
-    stepTotal = Math.min(stepTotal + 1, stepLimit);
+      updateOverallProgress(goalTotal, dribbleTotal, shotTotal, stepTotal);
+    }
 
-    document.getElementById("GOALS").value = goalTotal;
-    document.getElementById("DRIBBLES").value = dribbleTotal;
-    document.getElementById("SHOTS").value = shotTotal;
-    document.getElementById("STEPS").value = stepTotal;
-
-    console.log("button clicked"); 
-
-    updateOverallProgress(goalTotal, dribbleTotal, shotTotal, stepTotal);
-  }
-
-  function showCompletionScreen() {
-    document.body.innerHTML = `
-      <div class="navbar">
+    function showCompletionScreen() {
+      document.body.innerHTML = `
         <ul>
-          <li>HOME</li>
-          <li>LINEUP</li>
-          <li>MATCHUPS</li>
-          <li>TEAMS</li>
-          <li>ACES</li>
-          <li>SOURCES</li>
-          <li>TRACKER</li>
-          <li>BLUE LOCK NEO EGOIST LEAGUE</li>
+          <li><a href="./index.html" class="underline-anim">Home</a></li>
+          <li><a href="./lineup.html" class="underline-anim">Lineup</a></li>
+          <li><a href="./matchups.html" class="underline-anim">Matchups</a></li>
+          <li><a href="./teams.html" class="underline-anim">Teams</a></li>
+          <li><a href="./aces.html" class="underline-anim">Aces</a></li>
+          <li><a href="./signup.html" class="underline-anim">Tracker</a></li>
+          <li><a href="./references.html" class="underline-anim">Sources</a></li>
+          <li style="position: absolute; right: 0;"><a href="#" class="underline-anim">Blue Lock Neo Egoist League</a></li>
         </ul>
-      </div>
 
-      <h1>GOALS REACHED!</h1>
+        <header>
+          <h1>GOALS REACHED!</h1>
+        </header>
 
-      <div class="progress-container">
-        <div class="progress-bar" style="width:100%">100%</div>
-      </div>
+        <div class="progress-container">
+          <div class="progress-bar" style="width:100%">100%</div>
+        </div>
 
-      <div class="stats">
-        <p>GOALS: ${goalLimit}</p>
-        <p>DRIBBLES: ${dribbleLimit}</p>
-        <p>SHOTS: ${shotLimit}</p>
-        <p>STEPS: ${stepLimit}</p>
-      </div>
+        <table>
+          <tr>
+            <th>Stat</th>
+            <th>Amount</th>
+          </tr>
+          <tr>
+            <td>Goals</td>
+            <td>${goalLimit}</td>
+          </tr>
+          <tr>
+            <td>Dribbles</td>
+            <td>${dribbleLimit}</td>
+          </tr>
+          <tr>
+            <td>Shots</td>
+            <td>${shotLimit}</td>
+          </tr>
+          <tr>
+            <td>Steps</td>
+            <td>${stepLimit}</td>
+          </tr>
+        </table>
 
-      <button id="resetButton">RESET</button>
+        <div style="text-align:center; margin-top: 20px;">
+          <button id="resetButton">RESET</button>
+        </div>
+      `;
 
-      <footer>COPYRIGHT</footer>
-    `;
+      document.getElementById("resetButton").addEventListener("click", () => {
+        window.location.href = "tracker.html";
+      });
+    }
 
-    document.getElementById("resetButton").addEventListener("click", () => {
-      window.location.href = "tracker.html";
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementById("submitProgress").addEventListener("click", addProgress);
     });
-  }
-
-  document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("submitProgress").addEventListener("click", addProgress);
-  });
-</script>
+  </script>
 
 </body>
+</html>

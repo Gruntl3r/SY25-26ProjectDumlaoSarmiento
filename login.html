@@ -147,17 +147,17 @@
   </header>
 
   <!-- Login Table -->
-  <table>
+  <table id="loginForm">
     <tr>
       <th colspan="2">Login</th>
     </tr>
     <tr>
       <td>Username:</td>
-      <td><input type="text" placeholder="Enter your username"></td>
+      <td><input type="text"  id="loginUsername" placeholder="Enter your username"></td>
     </tr>
     <tr>
       <td>Password:</td>
-      <td><input type="password" placeholder="Enter your password"></td>
+      <td><input type="password" id="loginPassword" placeholder="Enter your password"></td>
     </tr>
     <tr>
       <td colspan="2"><button type="submit">Login</button></td>
@@ -173,4 +173,23 @@
   </div>
 
 </body>
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const username = document.getElementById("loginUsername").value;
+  const password = document.getElementById("loginPassword").value;
+
+
+  const storedUser = JSON.parse(localStorage.getItem(username));
+
+  if (storedUser && storedUser.password === password) {
+    alert("Login successful!");
+    
+      window.location.href = "tracker.html";
+    } else {
+      alert("Invalid username or password");
+    }
+  });
+</script>
 </html>

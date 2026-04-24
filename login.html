@@ -176,6 +176,7 @@
 
 </body>
 <script>
+document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("loginForm").addEventListener("submit", function(e) {
   e.preventDefault();
   console.log("Login form submitted");
@@ -188,10 +189,11 @@
 
   if (storedUser && storedUser.password === password) {
     alert("Login successful!");
-    window.location.href = "tracker.html";
+    window.location.href = "./tracker.html";
   } else {
     alert("Invalid username or password");
   }
+});
 });
 </script>
 </html>

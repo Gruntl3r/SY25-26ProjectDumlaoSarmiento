@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
   e.preventDefault();
   console.log("Login form submitted");
 
-  const username = document.getElementById("loginUsername").value;
+  const username = document.getElementById("loginUsername").value.trim();
   const password = document.getElementById("loginPassword").value;
 
   const storedUser = JSON.parse(localStorage.getItem(username));
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (storedUser && storedUser.password === password) {
     alert("Login successful!");
-    window.location.href = "./tracker.html";
+    window.location.href = "tracker.html";
   } else {
     alert("Invalid username or password");
   }
